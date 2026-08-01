@@ -1,13 +1,13 @@
 /* ==UserStyle==
 @name           NOBS MOBILE APP-LIKE REDESIGN
 @namespace      nobs.local
-@version        23.0.0
+@version        24.0.0
 @description    Drawer scoped to mobile, no duplicate avatar/ghost, home banner removed, edge-to-edge blocks, readable chat.
 @author         NoSoyAni (Copyright (c) 2026)
 @license        Custom - Personal & Non-Commercial Use Only
 ==/UserStyle== */
 /* ===================================================================
-   NOBS MOBILE APP-LIKE REDESIGN v23
+   NOBS MOBILE APP-LIKE REDESIGN v24
    Copyright (c) 2026 NoSoyAni. Todos los derechos reservados.
    LICENCIA Y CONDICIONES DE USO:
    - Se concede permiso gratuito a los miembros de la comunidad de NOBS 
@@ -176,6 +176,13 @@
         z-index: 9998 !important;
         display: flex !important;
         flex-direction: column !important;
+        /* el tema trae flex-wrap:wrap para la barra horizontal de
+           escritorio. En el drawer (columna con altura 100vh) eso hace
+           que, en cuanto el contenido pasa del alto de la pantalla, el
+           flex ENVUELVA a una segunda columna que queda fuera del area
+           visible. Aqui queremos que desborde hacia abajo y scrollee
+           con el overflow-y:auto de arriba. */
+        flex-wrap: nowrap !important;
         align-items: stretch !important;
         padding: 0 0 40px 0 !important;
         box-sizing: border-box !important;
@@ -469,6 +476,16 @@
     .top-nav__main-menus.mobile > li {
         width: 100% !important;
         position: static !important;
+        /* el tema deja este <li> como flex EN FILA (asi funciona la barra
+           de escritorio). Sus hijos son el <a> del titulo y el <ul> del
+           submenu, de modo que el submenu se colocaba AL LADO del titulo
+           como columna estrecha pegada a la derecha, encima del resto del
+           menu: se veia flotando y los toques acababan en el item de
+           debajo. Como bloque, el <ul> cae debajo del <a> a ancho completo.
+           El height fijo (60px, alto de la barra de escritorio) impedia
+           ademas que el <li> creciera y empujara a sus hermanos. */
+        display: block !important;
+        height: auto !important;
         border-bottom: 1px solid rgba(255,255,255,0.08) !important;
     }
     .top-nav__main-menus.mobile > li:last-child {
@@ -907,7 +924,7 @@
        el navegador esta cargando la version actualizada del CSS y no
        una copia cacheada. Subir el numero en cada cambio futuro. */
     body::before {
-        content: "nobs-mobile-fix v23" !important;
+        content: "nobs-mobile-fix v24" !important;
         position: fixed !important;
         bottom: 4px !important;
         left: 4px !important;
