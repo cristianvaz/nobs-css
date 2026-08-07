@@ -126,32 +126,43 @@ nav.top-nav::after {
 .quick-search__result-name { color: var(--text) !important; }
 .quick-search__result-year, .quick-search__result-type { color: var(--text-dim) !important; }
 
-/* ── MENUS / DROPDOWNS DE NAVEGACION ── */
-.top-nav--left__container {
-  font-family: 'Orbitron', monospace !important;
-  font-size: 11px !important;
-  letter-spacing: 0.1em !important;
-  color: var(--text-dim) !important;
-  padding: 6px 10px !important;
-  border: 1px solid transparent !important;
-  transition: all .2s !important;
-}
-.top-nav__dropdown:hover .top-nav--left__container {
-  color: var(--arc-bright) !important;
-  border-color: var(--arc) !important;
-  background: rgba(0,217,255,0.06) !important;
-  text-shadow: 0 0 8px var(--arc-glow) !important;
-}
-.top-nav__dropdown ul {
-  background: var(--bg-panel) !important;
-  border: 1px solid var(--border-hot) !important;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 16px var(--arc-glow) !important;
+/* ── MENUS / DROPDOWNS DE NAVEGACION ──
+   IMPORTANTE: este bloque va acotado a escritorio (min-width: 769px).
+   nobs-mobile-fix.css entra por @import AL PRINCIPIO de este archivo,
+   asi que sus reglas quedan ANTES en la cascada y, a igual
+   especificidad, pierden contra las de aqui (las media queries no
+   suman especificidad). Sin este acotado, el menu lateral movil
+   heredaba el tipo/tamano/padding pensados para la barra horizontal
+   -Orbitron 11px, color apagado, padding de barra- y las opciones
+   quedaban diminutas y casi ilegibles dentro del drawer. */
+@media (min-width: 769px) {
+  .top-nav--left__container {
+    font-family: 'Orbitron', monospace !important;
+    font-size: 11px !important;
+    letter-spacing: 0.1em !important;
+    color: var(--text-dim) !important;
+    padding: 6px 10px !important;
+    border: 1px solid transparent !important;
+    transition: all .2s !important;
+  }
+  .top-nav__dropdown:hover .top-nav--left__container {
+    color: var(--arc-bright) !important;
+    border-color: var(--arc) !important;
+    background: rgba(0,217,255,0.06) !important;
+    text-shadow: 0 0 8px var(--arc-glow) !important;
+  }
+  .top-nav__dropdown ul {
+    background: var(--bg-panel) !important;
+    border: 1px solid var(--border-hot) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 16px var(--arc-glow) !important;
+  }
+  .top-nav__ratio-bar { font-size: 11px !important; }
 }
 .top-nav__dropdown ul li a { color: var(--text) !important; font-family: 'Rajdhani', sans-serif !important; }
 .top-nav__dropdown ul li a:hover { background: rgba(0,217,255,0.08) !important; color: var(--arc-bright) !important; }
 
 /* ── BARRA DE RATIO ── */
-.top-nav__ratio-bar { font-family: 'Share Tech Mono', monospace !important; font-size: 11px !important; }
+.top-nav__ratio-bar { font-family: 'Share Tech Mono', monospace !important; }
 .top-nav__ratio-bar a { color: var(--text-dim) !important; }
 .top-nav__ratio-bar a:hover { color: var(--arc-bright) !important; }
 
