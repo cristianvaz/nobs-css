@@ -1,13 +1,13 @@
 /* ==UserStyle==
 @name           NOBS MOBILE APP-LIKE REDESIGN
 @namespace      nobs.local
-@version        24.0.0
+@version        25.0.0
 @description    Drawer scoped to mobile, no duplicate avatar/ghost, home banner removed, edge-to-edge blocks, readable chat.
 @author         NoSoyAni (Copyright (c) 2026)
 @license        Custom - Personal & Non-Commercial Use Only
 ==/UserStyle== */
 /* ===================================================================
-   NOBS MOBILE APP-LIKE REDESIGN v24
+   NOBS MOBILE APP-LIKE REDESIGN v25
    Copyright (c) 2026 NoSoyAni. Todos los derechos reservados.
    LICENCIA Y CONDICIONES DE USO:
    - Se concede permiso gratuito a los miembros de la comunidad de NOBS 
@@ -42,6 +42,10 @@
     }
     body {
         padding-bottom: 60px !important;
+        /* mismo motivo: el colchon que reserva la bottom nav tiene que
+           contar tambien la franja de gestos, si no el ultimo bloque de
+           la pagina queda tapado por la barra. */
+        padding-bottom: calc(60px + env(safe-area-inset-bottom)) !important;
     }
 
     .top-nav {
@@ -409,6 +413,13 @@
         position: static !important;
         width: 100% !important;
         flex: 1 1 100% !important;
+        /* mismo motivo que en el menu principal: el <li> viene como flex
+           en fila con alto fijo de la barra de escritorio, y eso dejaba
+           el submenu del perfil al lado del avatar en vez de debajo */
+        display: block !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
     }
     .top-nav__icon-bar .top-nav__dropdown > a.top-nav__dropdown--nontouch {
         display: none !important;
@@ -552,6 +563,18 @@
     .top-nav__main-menus.mobile > li {
         width: 100% !important;
         position: static !important;
+        /* CRITICO: el tema deja este <li> como flex EN FILA, que es como
+           funciona la barra de escritorio, y le da un alto fijo de 60px
+           (el alto de esa barra). Sus dos hijos son el <a> del titulo y
+           el <ul> del submenu, asi que en fila el submenu se colocaba AL
+           LADO del titulo, como columna estrecha pegada a la derecha y
+           encima del resto del menu; y el alto fijo impedia ademas que
+           el <li> creciera para dejarle sitio. Como bloque, el <ul> cae
+           debajo del <a> y a ancho completo. */
+        display: block !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
         border-bottom: 1px solid rgba(255,255,255,0.08) !important;
     }
     .top-nav__main-menus.mobile > li:last-child {
@@ -640,7 +663,11 @@
         box-sizing: border-box !important;
         margin: 4px 0 14px 0 !important;
         padding: 6px !important;
-        background: rgba(10,10,10,0.98) !important;
+        /* era casi opaco porque antes flotaba por encima del contenido y
+           tenia que taparlo. Ahora va en flujo, asi que un negro macizo
+           sobre el fondo negro del drawer solo marcaba una costura: se
+           iguala a la tarjeta del submenu de perfil. */
+        background: rgba(255,255,255,0.045) !important;
         border: 1px solid rgba(255,255,255,0.08) !important;
         border-radius: 12px !important;
         box-shadow: inset 0 1px 0 rgba(255,255,255,0.04) !important;
@@ -1007,9 +1034,14 @@
         justify-content: space-around !important;
         align-items: center !important;
         background: rgba(10,10,10,0.95) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
         backdrop-filter: blur(8px) !important;
         border-top: 1px solid rgba(255,255,255,0.1) !important;
+        /* en moviles con indicador de inicio (sin boton fisico) la franja
+           de gestos se come la fila de iconos: se anade la safe-area al
+           padding inferior para que queden por encima. */
         padding: 8px 0 !important;
+        padding-bottom: calc(8px + env(safe-area-inset-bottom)) !important;
     }
     .nobs-bottom-nav a {
         display: flex !important;
@@ -1030,7 +1062,7 @@
        el navegador esta cargando la version actualizada del CSS y no
        una copia cacheada. Subir el numero en cada cambio futuro. */
     body::before {
-        content: "nobs-mobile-fix v24" !important;
+        content: "nobs-mobile-fix v25" !important;
         position: fixed !important;
         bottom: 4px !important;
         left: 4px !important;
