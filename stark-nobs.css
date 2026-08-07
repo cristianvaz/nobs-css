@@ -339,6 +339,23 @@ body::after {
   z-index: 5;
 }
 
+/* ── MOVIMIENTO REDUCIDO ──
+   Si el sistema pide menos animacion (ajuste de accesibilidad del SO,
+   que mucha gente activa tambien por mareos o por bateria), quitamos la
+   scanline y dejamos transiciones y animaciones practicamente
+   instantaneas, sin desactivarlas del todo para no romper estados que
+   dependan del final de una transicion. */
+@media (prefers-reduced-motion: reduce) {
+  body::after { animation: none !important; display: none !important; }
+  #nobs-fx { display: none !important; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ============================================
    SECCION "MEJOR ESFUERZO" — Tablas de torrents,
    badges de freeleech, seeders/leechers, paginacion.

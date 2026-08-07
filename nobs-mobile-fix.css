@@ -26,6 +26,15 @@
     #nobs-fx {
         display: none !important;
     }
+    /* stark-nobs.css deja una scanline recorriendo la pantalla en bucle
+       infinito (animacion de 8s sobre body::after). En escritorio es
+       parte del efecto HUD, pero en movil es una capa fija repintandose
+       para siempre: gasta bateria y no se agradece. Ya ocultamos
+       #nobs-fx por lo mismo, esto es la pieza que faltaba. */
+    body::after {
+        animation: none !important;
+        display: none !important;
+    }
     main, .panelV2, .footer__wrapper {
         padding-left: 12px !important;
         padding-right: 12px !important;
