@@ -4,7 +4,12 @@
    Selectores confirmados a partir del HTML real
    del sitio (settings/general-edit page).
    ============================================ */
-@import url("https://cristianvaz.github.io/nobs-css/nobs-mobile-fix.css");
+/* El ?v= es un cache-buster: sin el, el navegador y el CDN de GitHub
+   Pages pueden servir la copia cacheada del CSS movil durante horas, que
+   es justo el motivo de que el marcador de version siguiera diciendo una
+   version vieja despues de publicar. Subir este numero junto con el
+   marcador cada vez que cambie nobs-mobile-fix.css. */
+@import url("https://cristianvaz.github.io/nobs-css/nobs-mobile-fix.css?v=25");
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
 
 /* ── VARIABLES ──
