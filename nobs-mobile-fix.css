@@ -242,12 +242,23 @@
     .top-nav.mobile > .top-nav__toggle,
     .top-nav:has(> .top-nav__main-menus.mobile) > .top-nav__toggle {
         position: fixed !important;
+        /* respeta el notch / barra de estado en pantallas con recorte */
         top: 14px !important;
+        top: max(14px, env(safe-area-inset-top)) !important;
         right: 14px !important;
         z-index: 10000 !important;
         font-size: 1.3rem !important;
         color: #fff !important;
+        /* va fixed sobre un panel que scrollea, asi que acaba flotando
+           encima del texto del menu. Con un fondo casi translucido la X
+           se confundia con las opciones de debajo: fondo solido, borde
+           y sombra para que siempre se lea como boton. */
         background: rgba(255,255,255,0.08) !important;
+        background: rgba(10,10,10,0.92) !important;
+        border: 1px solid rgba(255,255,255,0.18) !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.55) !important;
+        -webkit-backdrop-filter: blur(6px) !important;
+        backdrop-filter: blur(6px) !important;
         border-radius: 50% !important;
         width: 38px !important;
         height: 38px !important;
@@ -424,6 +435,20 @@
     .top-nav.mobile .top-nav__icon-bar .top-nav__dropdown > a.top-nav__dropdown--touch {
         pointer-events: none !important;
         cursor: default !important;
+        /* en el markup real este <a> contiene UNICAMENTE el avatar (el
+           nombre de usuario va como primer <li> del submenu). Con el
+           fondo de tarjeta y width:100% quedaba un recuadro vacio a todo
+           el ancho con un avatar pequeno perdido dentro. Lo dejamos como
+           cabecera compacta: solo el avatar, sin caja. */
+        background: none !important;
+        border-radius: 0 !important;
+        width: auto !important;
+        padding: 6px 2px 2px 2px !important;
+    }
+    .top-nav__icon-bar.mobile .top-nav__dropdown > a.top-nav__dropdown--touch .top-nav__profile-image,
+    .top-nav.mobile .top-nav__icon-bar .top-nav__dropdown > a.top-nav__dropdown--touch .top-nav__profile-image {
+        width: 44px !important;
+        height: 44px !important;
     }
     .top-nav__profile-image {
         width: 32px !important;
