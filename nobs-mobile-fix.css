@@ -90,7 +90,11 @@
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         margin: 0 !important;
-        background: linear-gradient(90deg, #d080ff, #00e5ff) !important;
+        /* --accent lo define UNIT3D (es el acento que elige cada usuario
+           en su perfil) y stark-nobs.css lo pisa a cian. Usandolo con
+           fallback, el logo sigue al tema que haya cargado en vez de
+           llevar un morado fijo que choca con el tema Stark. */
+        background: linear-gradient(90deg, var(--accent, #d080ff), var(--color-light-blue, #00e5ff)) !important;
         -webkit-background-clip: text !important;
         background-clip: text !important;
         -webkit-text-fill-color: transparent !important;
@@ -270,7 +274,13 @@
     }
 
     .top-nav__right.mobile {
+        /* mismo criterio que el logo: seguir --accent en vez de morado
+           fijo. La primera declaracion es el fallback para navegadores
+           sin color-mix(); la segunda gana donde si esta soportado. */
         background: linear-gradient(180deg, rgba(191,85,236,0.10), rgba(191,85,236,0.02)) !important;
+        background: linear-gradient(180deg,
+            color-mix(in srgb, var(--accent, #bf55ec) 10%, transparent),
+            color-mix(in srgb, var(--accent, #bf55ec) 2%, transparent)) !important;
         padding: 60px 16px 14px 16px !important;
         border-bottom: 1px solid rgba(255,255,255,0.08) !important;
         flex-shrink: 0 !important;
