@@ -415,11 +415,32 @@
 
     /* submenu del perfil: TARJETA que empuja el contenido hacia abajo,
        nunca position:absolute flotando encima de otras cosas.
-       SIEMPRE desplegado dentro del drawer (display:flex, no none). */
+       SIEMPRE desplegado dentro del drawer (display:flex, no none).
+
+       Se sube la especificidad y se anulan TODAS las propiedades de
+       anclaje, no solo position. El tema ancla este submenu con
+       right/top + min-width propio; con solo "position:static" bastaba
+       en teoria, pero si alguna de esas reglas gana por especificidad
+       el panel se queda flotando encima del ratio bar y del boton
+       Arcade, y entonces los toques caen sobre el elemento de arriba
+       en vez de sobre la opcion. Anulamos inset, transform, float,
+       min-width y margins laterales de una vez. */
+    .top-nav .top-nav__icon-bar.mobile .top-nav__dropdown > ul,
+    .top-nav.mobile .top-nav__icon-bar .top-nav__dropdown > ul,
     .top-nav__icon-bar.mobile .top-nav__dropdown ul,
     .top-nav.mobile .top-nav__icon-bar .top-nav__dropdown ul {
         position: static !important;
+        inset: auto !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        transform: none !important;
+        float: none !important;
+        clear: both !important;
+        z-index: auto !important;
         width: 100% !important;
+        min-width: 0 !important;
         max-width: 100% !important;
         box-sizing: border-box !important;
         display: flex !important;
